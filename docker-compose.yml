@@ -1,0 +1,19 @@
+networks:
+  crud_network:
+    external: true
+
+services:
+  crud-code:
+    hostname: crud-code
+    container_name: crud-code
+    image: crud-code/back
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8585:8585
+    environment:
+      - NODE_ENV=${NODE_ENV}
+    networks:
+      - crud_network
