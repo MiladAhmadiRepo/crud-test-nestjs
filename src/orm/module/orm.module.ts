@@ -14,6 +14,6 @@ import { OrmConfigService, } from '../services'
   controllers: [],
   providers: [  ]
   // providers: [SnakeNamingStrategy, AppLogger, DatabaseService],
-  // exports: [DatabaseService]
+
 })
 export class OrmModule {}

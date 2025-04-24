@@ -1,18 +1,23 @@
 import { Injectable, Scope } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm'
-import { typeormConfig } from '../config/typeorm-config'
-import { PlanSubscriber } from '../subscriber/plan.subscriber'
 import { OrmLogger } from './logger.service'
 @Injectable({ scope: Scope.DEFAULT })
 export class OrmConfigService implements TypeOrmOptionsFactory {
   constructor(private srv: ConfigService) {}
   createTypeOrmOptions(): TypeOrmModuleOptions {
-    const conf = typeormConfig(this.srv)
-    return {
-      ...conf,
-      autoLoadEntities: true,
-      logger: new OrmLogger(),
-    }
+    return{
+        type: 'postgres',
+        host: process.env.DATABASE_HOST,
+        port: Number(process.env.DATABASE_PORT),
+        username: process.env.DATABASE_USER,
+        password: process.env.DATABASE_PASSWORD,
+        database: process.env.DATABASE_DB,
+        synchronize: false,
+        autoLoadEntities: true,
+        logger: new OrmLogger(),
+        entities: ['src/orm/models/**/*.model{.ts,.js}'],
+        migrations: ['src/orm/migrations/*{.ts,.js}'],
+    };
   }
 }

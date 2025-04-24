@@ -10,21 +10,24 @@ import { BaseEntity } from '../base/base.model'
 export class CustomerEntity extends BaseEntity {
 
   @Column({ type: 'varchar', length: 50, nullable: false })
-  FirstName: string
+  firstName: string
 
   @Column({ type: 'varchar', length: 100, nullable: false })
-  LastName: string
+  lastName: string
 
-  @Column({  nullable: false, default: 30 })
-  DateOfBirth: Date
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP'
+  })
+  dateOfBirth: Date
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', length: 20, nullable: true })
   phoneNumber: string
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', length: 50, nullable: true })
   email: string
 
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'varchar', length: 100, nullable: true })
   bankAccountNumber: string
   //=============================== relations ==========================================================================
 
