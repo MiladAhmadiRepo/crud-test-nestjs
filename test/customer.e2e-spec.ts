@@ -2,14 +2,14 @@ import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { AppModule } from '../src/app.module';
-import { CustomerModule } from '../src/customer/customer.module';
+import {CustomerTddModule} from "../src/TDD/customer/customer-tdd.module";
 
 describe('CustomerController (e2e)', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
     const moduleFixture = await Test.createTestingModule({
-      imports: [AppModule, CustomerModule],
+      imports: [AppModule, CustomerTddModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();

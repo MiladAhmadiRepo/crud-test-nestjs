@@ -22,13 +22,13 @@ export class CustomerEntity extends BaseEntity {
   dateOfBirth: Date
 
   @Column({ type: 'varchar', length: 20, nullable: true })
-  phoneNumber: string
+  phoneNumber: string |null
 
   @Column({ type: 'varchar', length: 50, nullable: true })
-  email: string
+  email: string |null
 
   @Column({ type: 'varchar', length: 100, nullable: true })
-  bankAccountNumber: string
+  bankAccountNumber: string |null
   //=============================== relations ==========================================================================
 
   // @OneToMany(() => PatientPlanEntity, (pp) => pp.patient)

@@ -11,21 +11,23 @@ export class BaseEntity {
   insertedAt: Date
 
   @DeleteDateColumn()
-  deletedAt?: Date
+  deletedAt : Date | null
 
   @Column({
+    type: 'timestamp',
     nullable: true
   })
-  modifiedAt: Date
+  modifiedAt: Date | null
 
   @Column({ nullable: true })
   modifiedBy?: number
 
   @Column({
+    type: 'timestamp',
     nullable: true
   })
-  lockedAt: Date
+  lockedAt : Date | null
 
   @Column({ nullable: true })
-  lockedBy: number
+  lockedBy?: number
 }
