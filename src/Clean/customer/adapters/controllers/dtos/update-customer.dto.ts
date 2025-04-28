@@ -32,8 +32,8 @@ export class UpdateCustomerDto extends PartialType(CreateCustomerDto) {
   dateOfBirth?: string;
 
   @ApiProperty({
-    description: 'The phone number of the customer',
-    example: '1234567890',
+    description: 'The phone number of the customer (must be a valid mobile number)',
+    example: '+12025550123',
     required: false
   })
   phoneNumber?: string;
@@ -46,8 +46,8 @@ export class UpdateCustomerDto extends PartialType(CreateCustomerDto) {
   email?: string;
 
   @ApiProperty({
-    description: 'The bank account number of the customer',
-    example: '123456789',
+    description: 'The bank account number of the customer (8-17 digits)',
+    example: '12345678901',
     required: false
   })
   bankAccountNumber?: string;

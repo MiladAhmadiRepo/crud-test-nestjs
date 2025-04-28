@@ -39,8 +39,7 @@ export class CustomerResponsePresenter {
   @ApiProperty({ example: '2023-01-01T00:00:00.000Z' })
   createdAt: string;
 
-  @ApiProperty({ example: '2023-02-01T00:00:00.000Z', nullable: true })
-  updatedAt: string | null;
+  // updatedAt field removed as it's no longer in the base entity
 
   /**
    * Static factory method to create a presenter from a domain entity
@@ -57,7 +56,6 @@ export class CustomerResponsePresenter {
     presenter.email = customer.email;
     presenter.bankAccountNumber = customer.bankAccountNumber;
     presenter.createdAt = customer.createdAt.toISOString();
-    presenter.updatedAt = customer.updatedAt ? customer.updatedAt.toISOString() : null;
     return presenter;
   }
 }

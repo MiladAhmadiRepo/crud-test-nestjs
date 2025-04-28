@@ -31,8 +31,7 @@ export class CustomerRepository implements ICustomerRepository {
       ormEntity.phoneNumber,
       ormEntity.email,
       ormEntity.bankAccountNumber,
-      ormEntity.insertedAt,
-      ormEntity.modifiedAt
+      ormEntity.insertedAt
     );
   }
 
@@ -47,8 +46,7 @@ export class CustomerRepository implements ICustomerRepository {
       dateOfBirth: domainEntity.dateOfBirth,
       phoneNumber: domainEntity.phoneNumber,
       email: domainEntity.email,
-      bankAccountNumber: domainEntity.bankAccountNumber,
-      modifiedAt: domainEntity.updatedAt
+      bankAccountNumber: domainEntity.bankAccountNumber
     };
   }
 

@@ -45,8 +45,7 @@ export class CreateCustomerUseCase {
       input.phoneNumber || '',
       input.email || '',
       input.bankAccountNumber || '',
-      new Date(),
-      null
+      new Date()
     );
 
     // Save the customer

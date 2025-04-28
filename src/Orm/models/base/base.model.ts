@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm'
+import { CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn } from 'typeorm'
 
 export class BaseEntity {
   @PrimaryGeneratedColumn('increment')
@@ -12,22 +12,4 @@ export class BaseEntity {
 
   @DeleteDateColumn()
   deletedAt : Date | null
-
-  @Column({
-    type: 'timestamp',
-    nullable: true
-  })
-  modifiedAt: Date | null
-
-  @Column({ nullable: true })
-  modifiedBy?: number
-
-  @Column({
-    type: 'timestamp',
-    nullable: true
-  })
-  lockedAt : Date | null
-
-  @Column({ nullable: true })
-  lockedBy?: number
 }

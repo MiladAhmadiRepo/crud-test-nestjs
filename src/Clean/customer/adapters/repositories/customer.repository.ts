@@ -25,7 +25,7 @@ export class CustomerRepository implements ICustomerRepository {
     // if (!ormEntity) return null;
     
     // Map ORM entity properties to domain entity constructor parameters
-    // insertedAt maps to createdAt, modifiedAt maps to updatedAt
+    // insertedAt maps to createdAt
     return new Customer(
       ormEntity.id,
       ormEntity.firstName,
@@ -34,8 +34,7 @@ export class CustomerRepository implements ICustomerRepository {
       ormEntity.phoneNumber,
       ormEntity.email,
       ormEntity.bankAccountNumber,
-      ormEntity.insertedAt as Date  ,
-      ormEntity.modifiedAt as Date | null   // This maps to updatedAt in the Customer constructor
+      ormEntity.insertedAt as Date
     );
   }
 
@@ -51,7 +50,7 @@ export class CustomerRepository implements ICustomerRepository {
       phoneNumber: domainEntity.phoneNumber,
       email: domainEntity.email,
       bankAccountNumber: domainEntity.bankAccountNumber,
-      modifiedAt: domainEntity.updatedAt
+      // No longer need to map updatedAt since modifiedAt was removed
     };
   }
 

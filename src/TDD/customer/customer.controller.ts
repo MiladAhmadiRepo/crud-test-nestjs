@@ -32,12 +32,6 @@ export class CustomerController {
     return this.customerService.create(createCustomerDto);
   }
 
-  @Get()
-  @ApiOperation({ summary: 'Get all customers' })
-  @ApiResponse({ status: HttpStatus.OK, description: 'List of all customers' })
-  findAll() {
-    return this.customerService.findAll();
-  }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get a customer by ID' })

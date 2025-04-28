@@ -61,10 +61,6 @@ describe('Customer Management', () => {
       email: 'john.doe@example.com',
       bankAccountNumber: '123456789',
       insertedAt: new Date(),
-      modifiedAt: null,
-      modifiedBy: null,
-      lockedAt: null,
-      lockedBy: null,
       deletedAt: null,
     };
 
@@ -178,10 +174,6 @@ describe('Customer Management', () => {
       email: 'john.doe@example.com',
       bankAccountNumber: '123456789',
       insertedAt: new Date(),
-      modifiedAt: null,
-      modifiedBy: null,
-      lockedAt: null,
-      lockedBy: null,
       deletedAt: null,
     };
 
@@ -244,10 +236,6 @@ describe('Customer Management', () => {
       email: 'john.doe@example.com',
       bankAccountNumber: '123456789',
       insertedAt: new Date(),
-      modifiedAt: null,
-      modifiedBy: null,
-      lockedAt: null,
-      lockedBy: null,
       deletedAt: null,
     };
 

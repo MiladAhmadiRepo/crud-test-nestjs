@@ -13,7 +13,6 @@ export class Customer {
   private _email: string  ;
   private _bankAccountNumber: string  ;
   private _createdAt: Date;
-  private _updatedAt: Date |null ;
 
   constructor(
     id: number  ,
@@ -23,8 +22,7 @@ export class Customer {
     phoneNumber: string,
     email: string,
     bankAccountNumber: string,
-    createdAt: Date  |null,
-    updatedAt: Date | null
+    createdAt: Date  |null
   ) {
     this._id = id || 0;
     this._firstName = firstName;
@@ -34,7 +32,6 @@ export class Customer {
     this._email = email  ;
     this._bankAccountNumber = bankAccountNumber  ;
     this._createdAt = createdAt || new Date();
-    this._updatedAt = updatedAt  ;
     
     this.validateState();
   }
@@ -88,9 +85,7 @@ export class Customer {
     return this._createdAt;
   }
 
-  get updatedAt(): Date |null {
-    return this._updatedAt;
-  }
+
 
   // Business methods
   updatePersonalInformation(firstName?: string, lastName?: string, dateOfBirth?: Date): void {
@@ -105,8 +100,7 @@ export class Customer {
     if (dateOfBirth !== undefined) {
       this._dateOfBirth = dateOfBirth;
     }
-    
-    this._updatedAt = new Date();
+
     this.validateState();
   }
 
@@ -118,8 +112,7 @@ export class Customer {
     if (email !== undefined) {
       this._email = email;
     }
-    
-    this._updatedAt = new Date();
+
     this.validateState();
   }
 
@@ -127,8 +120,7 @@ export class Customer {
     if (bankAccountNumber !== undefined) {
       this._bankAccountNumber = bankAccountNumber;
     }
-    
-    this._updatedAt = new Date();
+
     this.validateState();
   }
 
@@ -170,8 +162,7 @@ export class Customer {
       phoneNumber: this._phoneNumber,
       email: this._email,
       bankAccountNumber: this._bankAccountNumber,
-      createdAt: this._createdAt,
-      updatedAt: this._updatedAt
+      createdAt: this._createdAt
     };
   }
 }
