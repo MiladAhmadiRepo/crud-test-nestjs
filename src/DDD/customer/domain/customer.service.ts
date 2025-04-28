@@ -37,7 +37,6 @@ export class CustomerDomainService {
             phoneNumber,
             email,
             bankAccountNumber,
-            new Date()
         );
 
         // Persist through repository

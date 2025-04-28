@@ -31,7 +31,6 @@ export class CustomerRepository implements ICustomerRepository {
       ormEntity.phoneNumber,
       ormEntity.email,
       ormEntity.bankAccountNumber,
-      ormEntity.insertedAt
     );
   }
 
@@ -52,16 +51,6 @@ export class CustomerRepository implements ICustomerRepository {
 
   async findById(id: number): Promise<Customer | null> {
     const ormEntity = await this.ormRepository.findOneBy({ id });
-    return ormEntity ? this.toDomainEntity(ormEntity) : null;
-  }
-
-  async findAll(): Promise<Customer[]> {
-    const ormEntities = await this.ormRepository.find();
-    return ormEntities.map(entity => this.toDomainEntity(entity));
-  }
-
-  async findByEmail(email: string): Promise<Customer | null> {
-    const ormEntity = await this.ormRepository.findOneBy({ email });
     return ormEntity ? this.toDomainEntity(ormEntity) : null;
   }
 

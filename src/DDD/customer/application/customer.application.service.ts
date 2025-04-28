@@ -20,9 +20,6 @@ export class CustomerApplicationService {
     private readonly customerRepository: ICustomerRepository
   ) {}
 
-  /**
-   * Register a new customer
-   */
   async registerCustomer(createCustomerDto: CreateCustomerDto): Promise<Customer |null> {
     try {
       return await this.customerDomainService.registerNewCustomer(
@@ -41,16 +38,6 @@ export class CustomerApplicationService {
     }
   }
 
-  /**
-   * Find all customers
-   */
-  async findAllCustomers(): Promise<Customer[]> {
-    return this.customerRepository.findAll();
-  }
-
-  /**
-   * Find a customer by ID
-   */
   async findCustomerById(id: number): Promise<Customer> {
     const customer = await this.customerRepository.findById(id);
     if (!customer) {
@@ -59,9 +46,6 @@ export class CustomerApplicationService {
     return customer;
   }
 
-  /**
-   * Update customer information
-   */
   async updateCustomer(id: number, updateCustomerDto: UpdateCustomerDto): Promise<Customer | null> {
     try {
       return await this.customerDomainService.updateCustomerInformation(
@@ -84,9 +68,6 @@ export class CustomerApplicationService {
     }
   }
 
-  /**
-   * Remove a customer
-   */
   async removeCustomer(id: number): Promise<void> {
     try {
       await this.customerDomainService.removeCustomer(id);

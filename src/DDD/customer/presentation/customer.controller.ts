@@ -46,19 +46,6 @@ export class CustomerController {
     return CustomerResponseDto.fromDomain(customer);
   }
 
-  @Get()
-  @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Get all customers' })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: 'List of all customers',
-    type: [CustomerResponseDto],
-  })
-  async findAll(): Promise<CustomerResponseDto[]> {
-    const customers = await this.applicationService.findAllCustomers();
-    return customers.map(customer => CustomerResponseDto.fromDomain(customer));
-  }
-
   @Get(':id')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Get a customer by ID' })
