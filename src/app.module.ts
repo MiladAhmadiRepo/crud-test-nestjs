@@ -6,6 +6,7 @@ import { CustomerModule as TDDCustomerModule } from './TDD/customer/customer.mod
 import { CustomerModule as BDDCustomerModule } from './BDD/customer/customer.module';
 import { CustomerModule as DDDCustomerModule } from './DDD/customer/customer.module';
 import { CustomerModule as CleanCustomerModule } from './Clean/customer/customer.module';
+import { CustomerModule as CQRSCustomerModule } from './CQRS/customer/customer.module';
 import {OrmModule} from "./Orm/module/orm.module";
 import {ConfigModule} from "@nestjs/config";
 export const envUrl = `env/.env.${process.env.NODE_ENV || 'local'}`
@@ -23,7 +24,8 @@ export const envUrl = `env/.env.${process.env.NODE_ENV || 'local'}`
     TDDCustomerModule,
     BDDCustomerModule,
     DDDCustomerModule,
-    // CleanCustomerModule,
+    CleanCustomerModule,
+    CQRSCustomerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
