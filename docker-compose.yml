@@ -12,7 +12,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8585:8585
+      - 3003:3003
     environment:
       - NODE_ENV=${NODE_ENV}
     networks:
