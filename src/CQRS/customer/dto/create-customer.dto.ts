@@ -2,7 +2,6 @@ import {IsString, IsEmail, IsOptional, IsDateString, IsNotEmpty} from 'class-val
 import { ApiProperty } from '@nestjs/swagger';
 import { IsPhoneNumber } from '../../../Common/decorators/is-phone-number.decorator';
 import { IsBankAccount } from '../../../Common/decorators/is-bank-account.decorator';
-
 /**
  * Data Transfer Object for creating a new customer
  */
