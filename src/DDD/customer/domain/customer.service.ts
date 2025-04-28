@@ -1,5 +1,5 @@
-import {Customer} from './customer.entity';
-import {ICustomerRepository} from './customer.repository.interface';
+import { Customer } from './customer.entity';
+import { ICustomerRepository } from './customer.repository.interface';
 
 /**
  * Domain Service for Customer

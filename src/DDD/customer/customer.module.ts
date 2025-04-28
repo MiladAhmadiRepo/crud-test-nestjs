@@ -24,22 +24,26 @@ export const CUSTOMER_REPOSITORY = 'CUSTOMER_REPOSITORY';
   ],
   controllers: [CustomerController],
   providers: [
-    // Application layer
-    CustomerApplicationService,
+    // Infrastructure layer - define repository first
+    CustomerRepository,
+    {
+      provide: CUSTOMER_REPOSITORY,
+      useClass: CustomerRepository
+    },
     
-    // Domain layer
+    // Domain layer - depends on repository
     {
       provide: CustomerDomainService,
       useFactory: (repository) => new CustomerDomainService(repository),
       inject: [CUSTOMER_REPOSITORY]
     },
     
-    // Infrastructure layer
+    // Application layer - depends on domain service and repository
     {
-      provide: CUSTOMER_REPOSITORY,
-      useClass: CustomerRepository
-    },
-    CustomerRepository
+      provide: CustomerApplicationService,
+      useFactory: (domainService, repository) => new CustomerApplicationService(domainService, repository),
+      inject: [CustomerDomainService, CUSTOMER_REPOSITORY]
+    }
   ],
   exports: [CustomerApplicationService]
 })

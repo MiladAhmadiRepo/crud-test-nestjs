@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CustomerDomainService } from '../domain/customer.service';
 import { Customer } from '../domain/customer.entity';
 import { CreateCustomerDto } from '../dto/create-customer.dto';
@@ -14,11 +14,9 @@ import { CUSTOMER_REPOSITORY } from '../customer.module';
  * Implements use cases by coordinating domain objects and services.
  * Translates between the domain and the outside world (DTOs, exceptions).
  */
-@Injectable()
 export class CustomerApplicationService {
   constructor(
     private readonly customerDomainService: CustomerDomainService,
-    @Inject(CUSTOMER_REPOSITORY)
     private readonly customerRepository: ICustomerRepository
   ) {}
 
