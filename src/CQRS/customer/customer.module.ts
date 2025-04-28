@@ -12,7 +12,6 @@ import { DeleteCustomerCommandHandler } from './commands/handlers/delete-custome
 
 // Query Handlers
 import { GetCustomerByIdQueryHandler } from './queries/handlers/get-customer-by-id.handler';
-import { GetAllCustomersQueryHandler } from './queries/handlers/get-all-customers.handler';
 import { GetCustomerQueryHandler } from './queries/handlers/get-customer.handler';
 
 // Event Handlers
@@ -23,6 +22,7 @@ import { CustomerDeletedEventHandler } from './events/handlers/customer-deleted.
 // Repositories
 import { CustomerEventStoreRepository } from './repositories/customer-event-store.repository';
 import { CustomerEventModel } from './repositories/customer-event.model';
+import { CustomerEntity } from '../../Orm/models/customer/customer.model';
 
 // Command handlers
 const CommandHandlers = [
@@ -34,7 +34,6 @@ const CommandHandlers = [
 // Query handlers
 const QueryHandlers = [
   GetCustomerByIdQueryHandler,
-  GetAllCustomersQueryHandler,
   GetCustomerQueryHandler,
 ];
 
@@ -56,7 +55,7 @@ const EventHandlers = [
 @Module({
   imports: [
     CqrsModule,
-    TypeOrmModule.forFeature([CustomerEventModel])
+    TypeOrmModule.forFeature([CustomerEventModel, CustomerEntity])
   ],
   controllers: [CustomerController],
   providers: [

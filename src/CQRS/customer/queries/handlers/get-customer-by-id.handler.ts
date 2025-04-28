@@ -1,4 +1,8 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { NotFoundException } from '@nestjs/common';
+import { CustomerEntity } from '../../../../Orm/models/customer/customer.model';
 import { GetCustomerByIdQuery } from '../models/get-customer-by-id.query';
 
 /**
@@ -9,23 +13,22 @@ import { GetCustomerByIdQuery } from '../models/get-customer-by-id.query';
  */
 @QueryHandler(GetCustomerByIdQuery)
 export class GetCustomerByIdQueryHandler implements IQueryHandler<GetCustomerByIdQuery> {
-  constructor() {}
+  constructor(
+    @InjectRepository(CustomerEntity)
+    private readonly customerRepository: Repository<CustomerEntity>
+  ) {}
 
-  async execute(query: GetCustomerByIdQuery): Promise<any> {
-    // Return a mock customer object instead of querying the read model
+  async execute(query: GetCustomerByIdQuery): Promise<CustomerEntity> {
     console.log(`Get customer by ID query handled: ${query.customerId}`);
     
-    // If you need to return actual data, you would need to implement
-    // a different storage mechanism or fetch from event store
-    return {
-      id: query.customerId,
-      firstName: 'Mock',
-      lastName: 'Customer',
-      dateOfBirth: new Date('1990-01-01'),
-      phoneNumber: '1234567890',
-      email: 'mock@example.com',
-      bankAccountNumber: '123456789',
-      isDeleted: false
-    };
+    // Fetch the customer from the database
+    const customer = await this.customerRepository.findOneBy({ id: query.customerId });
+    
+    // Throw NotFoundException if customer not found
+    if (!customer) {
+      throw new NotFoundException(`Customer with ID ${query.customerId} not found`);
+    }
+    
+    return customer;
   }
 }
