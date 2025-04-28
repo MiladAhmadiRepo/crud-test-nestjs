@@ -1,40 +1,40 @@
 /**
- * Domain Entity - Customer
+ * Core Entity - Customer
  * 
- * In DDD, the domain entity represents the core business concept with its behavior.
- * This is different from the ORM entity which is an infrastructure concern.
+ * In Clean Architecture, entities encapsulate enterprise-wide business rules.
+ * They are the most stable part of the system and should not depend on any outer layer.
  */
 export class Customer {
   private _id: number;
   private _firstName: string;
   private _lastName: string;
   private _dateOfBirth: Date;
-  private _phoneNumber: string ;
+  private _phoneNumber: string  ;
   private _email: string  ;
   private _bankAccountNumber: string  ;
   private _createdAt: Date;
   private _updatedAt: Date |null ;
 
   constructor(
-    id: number | null,
+    id: number  ,
     firstName: string,
     lastName: string,
     dateOfBirth: Date,
     phoneNumber: string,
     email: string,
     bankAccountNumber: string,
-    createdAt: Date,
+    createdAt: Date  |null,
     updatedAt: Date | null
   ) {
     this._id = id || 0;
     this._firstName = firstName;
     this._lastName = lastName;
     this._dateOfBirth = dateOfBirth;
-    this._phoneNumber = phoneNumber ;
-    this._email = email ;
-    this._bankAccountNumber = bankAccountNumber ;
+    this._phoneNumber = phoneNumber  ;
+    this._email = email  ;
+    this._bankAccountNumber = bankAccountNumber  ;
     this._createdAt = createdAt || new Date();
-    this._updatedAt = updatedAt ;
+    this._updatedAt = updatedAt  ;
     
     this.validateState();
   }
@@ -80,7 +80,7 @@ export class Customer {
     return this._email;
   }
 
-  get bankAccountNumber(): string  {
+  get bankAccountNumber(): string   {
     return this._bankAccountNumber;
   }
 
@@ -88,11 +88,11 @@ export class Customer {
     return this._createdAt;
   }
 
-  get updatedAt(): Date | null {
+  get updatedAt(): Date |null {
     return this._updatedAt;
   }
 
-  // Domain methods
+  // Business methods
   updatePersonalInformation(firstName?: string, lastName?: string, dateOfBirth?: Date): void {
     if (firstName !== undefined) {
       this._firstName = firstName;

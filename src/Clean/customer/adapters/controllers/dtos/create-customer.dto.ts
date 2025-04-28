@@ -3,7 +3,10 @@ import { ApiProperty } from '@nestjs/swagger';
 
 /**
  * Data Transfer Object for creating a new customer
- * Part of the presentation layer in DDD
+ * 
+ * In Clean Architecture, this is part of the interface adapters layer
+ * that formats data coming from external sources into a format suitable
+ * for the use cases.
  */
 export class CreateCustomerDto {
   @ApiProperty({
@@ -34,7 +37,7 @@ export class CreateCustomerDto {
   })
   @IsString({ message: 'Phone number must be a string' })
   @IsOptional()
-  phoneNumber: string;
+  phoneNumber?: string;
 
   @ApiProperty({
     description: 'The email address of the customer',
@@ -43,7 +46,7 @@ export class CreateCustomerDto {
   })
   @IsEmail({}, { message: 'Email must be a valid email address' })
   @IsOptional()
-  email: string;
+  email?: string;
 
   @ApiProperty({
     description: 'The bank account number of the customer',
@@ -52,5 +55,5 @@ export class CreateCustomerDto {
   })
   @IsString({ message: 'Bank account number must be a string' })
   @IsOptional()
-  bankAccountNumber: string;
+  bankAccountNumber?: string;
 }

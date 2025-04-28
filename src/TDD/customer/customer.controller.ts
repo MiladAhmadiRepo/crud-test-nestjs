@@ -1,8 +1,19 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ParseIntPipe, HttpStatus} from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UsePipes,
+  ParseIntPipe,
+  HttpStatus,
+  ValidationPipe
+} from '@nestjs/common';
 import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
-import {ValidationPipe} from "../../Common/pipes/validation.pipe";
 import {ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags} from "@nestjs/swagger";
 
 @Controller('tdd/customers')

@@ -40,8 +40,9 @@ export class CustomerController {
   })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Invalid customer data' })
   @ApiResponse({ status: HttpStatus.CONFLICT, description: 'Customer already exists' })
-  async create(@Body() createCustomerDto: CreateCustomerDto): Promise<CustomerResponseDto> {
+  async create(@Body() createCustomerDto: CreateCustomerDto): Promise<CustomerResponseDto | null> {
     const customer = await this.applicationService.registerCustomer(createCustomerDto);
+    if(!customer)return  null
     return CustomerResponseDto.fromDomain(customer);
   }
 
@@ -89,8 +90,9 @@ export class CustomerController {
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateCustomerDto: UpdateCustomerDto,
-  ): Promise<CustomerResponseDto> {
+  ): Promise<CustomerResponseDto|null> {
     const customer = await this.applicationService.updateCustomer(id, updateCustomerDto);
+    if(!customer) return null
     return CustomerResponseDto.fromDomain(customer);
   }
 

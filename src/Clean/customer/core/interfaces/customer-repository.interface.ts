@@ -1,10 +1,15 @@
-import { Customer } from './customer.entity';
+import { Customer } from '../entities/customer.entity';
+
+/**
+ * Token for CustomerRepository dependency injection
+ */
+export const CUSTOMER_REPOSITORY = 'CUSTOMER_REPOSITORY';
 
 /**
  * Repository Interface for Customer Domain Entity
  * 
- * In DDD, the repository interface belongs to the domain layer and defines
- * how the domain interacts with persistence without specifying implementation details.
+ * In Clean Architecture, this interface is defined by the use cases
+ * and implemented by the adapters layer.
  */
 export interface ICustomerRepository {
   /**
@@ -30,7 +35,7 @@ export interface ICustomerRepository {
   /**
    * Remove a customer from the system
    */
-  remove(customer: Customer): Promise<void>;
+  remove(customerId: number): Promise<void>;
   
   /**
    * Check if a customer with the given email already exists

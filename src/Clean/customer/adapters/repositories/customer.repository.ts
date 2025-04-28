@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CustomerEntity } from '../../../Orm/models/customer/customer.model';
-import { ICustomerRepository } from '../domain/customer.repository.interface';
-import { Customer } from '../domain/customer.entity';
+import { CustomerEntity } from '../../../../Orm/models/customer/customer.model';
+import { ICustomerRepository } from '../../core/interfaces/customer-repository.interface';
+import { Customer } from '../../core/entities/customer.entity';
 
 /**
  * TypeORM implementation of the Customer Repository
  * 
- * This is part of the infrastructure layer in DDD.
- * It translates between domain entities and ORM entities.
+ * In Clean Architecture, this is part of the adapters layer that implements
+ * the repository interface defined by the use cases.
  */
 @Injectable()
 export class CustomerRepository implements ICustomerRepository {
@@ -22,7 +22,10 @@ export class CustomerRepository implements ICustomerRepository {
    * Map ORM entity to domain entity
    */
   private toDomainEntity(ormEntity: CustomerEntity): Customer {
-
+    // if (!ormEntity) return null;
+    
+    // Map ORM entity properties to domain entity constructor parameters
+    // insertedAt maps to createdAt, modifiedAt maps to updatedAt
     return new Customer(
       ormEntity.id,
       ormEntity.firstName,
@@ -31,8 +34,8 @@ export class CustomerRepository implements ICustomerRepository {
       ormEntity.phoneNumber,
       ormEntity.email,
       ormEntity.bankAccountNumber,
-      ormEntity.insertedAt,
-      ormEntity.modifiedAt
+      ormEntity.insertedAt as Date  ,
+      ormEntity.modifiedAt as Date | null   // This maps to updatedAt in the Customer constructor
     );
   }
 
@@ -41,7 +44,7 @@ export class CustomerRepository implements ICustomerRepository {
    */
   private toOrmEntity(domainEntity: Customer): Partial<CustomerEntity> {
     return {
-      id: domainEntity.id  ,
+      id: domainEntity.id || undefined,
       firstName: domainEntity.firstName,
       lastName: domainEntity.lastName,
       dateOfBirth: domainEntity.dateOfBirth,
@@ -67,7 +70,7 @@ export class CustomerRepository implements ICustomerRepository {
     return ormEntity ? this.toDomainEntity(ormEntity) : null;
   }
 
-  async save(customer: Customer): Promise<Customer|null> {
+  async save(customer: Customer): Promise<Customer | null> {
     const ormEntity = this.toOrmEntity(customer);
     
     // For new entities without ID
@@ -80,13 +83,11 @@ export class CustomerRepository implements ICustomerRepository {
     // For existing entities
     await this.ormRepository.update(ormEntity.id, ormEntity);
     const updatedEntity = await this.ormRepository.findOneBy({ id: ormEntity.id });
-    if(!updatedEntity)
-      return null;
-    return this.toDomainEntity(updatedEntity);
+    return updatedEntity? this.toDomainEntity(updatedEntity) : null;
   }
 
-  async remove(customer: Customer): Promise<void> {
-    await this.ormRepository.delete(customer.id);
+  async remove(customerId: number): Promise<void> {
+    await this.ormRepository.delete(customerId);
   }
 
   async existsByEmail(email: string): Promise<boolean> {

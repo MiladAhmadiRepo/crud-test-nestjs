@@ -25,7 +25,7 @@ export class CustomerApplicationService {
   /**
    * Register a new customer
    */
-  async registerCustomer(createCustomerDto: CreateCustomerDto): Promise<Customer> {
+  async registerCustomer(createCustomerDto: CreateCustomerDto): Promise<Customer |null> {
     try {
       return await this.customerDomainService.registerNewCustomer(
         createCustomerDto.firstName,
@@ -64,7 +64,7 @@ export class CustomerApplicationService {
   /**
    * Update customer information
    */
-  async updateCustomer(id: number, updateCustomerDto: UpdateCustomerDto): Promise<Customer> {
+  async updateCustomer(id: number, updateCustomerDto: UpdateCustomerDto): Promise<Customer | null> {
     try {
       return await this.customerDomainService.updateCustomerInformation(
         id,
