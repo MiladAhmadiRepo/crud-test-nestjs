@@ -5,7 +5,6 @@ import { CustomerController } from './adapters/controllers/customer.controller';
 import { CustomerRepository } from './adapters/repositories/customer.repository';
 import { CreateCustomerUseCase } from './core/use-cases/create-customer.use-case';
 import { GetCustomerUseCase } from './core/use-cases/get-customer.use-case';
-import { GetAllCustomersUseCase } from './core/use-cases/get-all-customers.use-case';
 import { UpdateCustomerUseCase } from './core/use-cases/update-customer.use-case';
 import { DeleteCustomerUseCase } from './core/use-cases/delete-customer.use-case';
 import { CUSTOMER_REPOSITORY } from './core/interfaces/customer-repository.interface';
@@ -47,13 +46,6 @@ import { CUSTOMER_REPOSITORY } from './core/interfaces/customer-repository.inter
       inject: [CUSTOMER_REPOSITORY]
     },
     {
-      provide: GetAllCustomersUseCase,
-      useFactory: (repository) => {
-        return new GetAllCustomersUseCase(repository);
-      },
-      inject: [CUSTOMER_REPOSITORY]
-    },
-    {
       provide: UpdateCustomerUseCase,
       useFactory: (repository) => {
         return new UpdateCustomerUseCase(repository);
@@ -71,7 +63,6 @@ import { CUSTOMER_REPOSITORY } from './core/interfaces/customer-repository.inter
   exports: [
     CreateCustomerUseCase,
     GetCustomerUseCase,
-    GetAllCustomersUseCase,
     UpdateCustomerUseCase,
     DeleteCustomerUseCase
   ]

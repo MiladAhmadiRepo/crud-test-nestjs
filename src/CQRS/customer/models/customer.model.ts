@@ -19,8 +19,6 @@ export class CustomerAggregate extends AggregateRoot {
   private _phoneNumber: string | null;
   private _email: string | null;
   private _bankAccountNumber: string | null;
-  private _createdAt: Date;
-  private _updatedAt: Date | null;
   private _isDeleted: boolean;
 
   constructor(id?: number) {
@@ -59,15 +57,6 @@ export class CustomerAggregate extends AggregateRoot {
     return this._bankAccountNumber;
   }
 
-  get createdAt(): Date {
-    return this._createdAt;
-  }
-
-  get updatedAt(): Date | null {
-    return this._updatedAt;
-  }
-
-
   // Command methods - these trigger events
   createCustomer(
     id: number,
@@ -90,7 +79,6 @@ export class CustomerAggregate extends AggregateRoot {
       phoneNumber || null,
       email || null,
       bankAccountNumber || null,
-      new Date()
     ));
   }
 
@@ -128,7 +116,6 @@ export class CustomerAggregate extends AggregateRoot {
         phoneNumber,
         email,
         bankAccountNumber,
-        new Date()
       ));
     }
   }
@@ -152,8 +139,6 @@ export class CustomerAggregate extends AggregateRoot {
     this._phoneNumber = event.phoneNumber;
     this._email = event.email;
     this._bankAccountNumber = event.bankAccountNumber;
-    this._createdAt = event.createdAt;
-    this._updatedAt = null;
     this._isDeleted = false;
   }
 
@@ -182,12 +167,10 @@ export class CustomerAggregate extends AggregateRoot {
       this._bankAccountNumber = event.bankAccountNumber;
     }
 
-    this._updatedAt = event.updatedAt;
   }
 
   onCustomerDeletedEvent(event: CustomerDeletedEvent): void {
     this._isDeleted = true;
-    this._updatedAt = new Date();
   }
 
   // Helper methods
@@ -213,13 +196,6 @@ export class CustomerAggregate extends AggregateRoot {
       throw new Error('Date of birth cannot be in the future');
     }
 
-    if (email && !this.isValidEmail(email)) {
-      throw new Error('Invalid email format');
-    }
   }
 
-  private isValidEmail(email: string): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
 }

@@ -19,7 +19,6 @@ import { UpdateCustomerDto } from './dtos/update-customer.dto';
 import { CustomerResponsePresenter } from '../presenters/customer-response.presenter';
 import { CreateCustomerUseCase } from '../../core/use-cases/create-customer.use-case';
 import { GetCustomerUseCase } from '../../core/use-cases/get-customer.use-case';
-import { GetAllCustomersUseCase } from '../../core/use-cases/get-all-customers.use-case';
 import { UpdateCustomerUseCase } from '../../core/use-cases/update-customer.use-case';
 import { DeleteCustomerUseCase } from '../../core/use-cases/delete-customer.use-case';
 
@@ -31,13 +30,12 @@ import { DeleteCustomerUseCase } from '../../core/use-cases/delete-customer.use-
  * to the format most convenient for the delivery mechanism (e.g., web, CLI, etc.)
  */
 @Controller('clean/customers')
-@ApiTags('Clean Architecture Customer Management')
+@ApiTags('Clean Architecture Customer')
 @UsePipes(new ValidationPipe({ transform: true }))
 export class CustomerController {
   constructor(
     private readonly createCustomerUseCase: CreateCustomerUseCase,
     private readonly getCustomerUseCase: GetCustomerUseCase,
-    private readonly getAllCustomersUseCase: GetAllCustomersUseCase,
     private readonly updateCustomerUseCase: UpdateCustomerUseCase,
     private readonly deleteCustomerUseCase: DeleteCustomerUseCase,
   ) {}
@@ -73,19 +71,6 @@ export class CustomerController {
       }
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
-  }
-
-  @Get()
-  @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Get all customers' })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: 'List of all customers',
-    type: [CustomerResponsePresenter],
-  })
-  async findAll(): Promise<CustomerResponsePresenter[]> {
-    const customers = await this.getAllCustomersUseCase.execute();
-    return customers.map(customer => CustomerResponsePresenter.fromEntity(customer));
   }
 
   @Get(':id')

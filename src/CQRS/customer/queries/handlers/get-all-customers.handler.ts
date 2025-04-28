@@ -26,8 +26,6 @@ export class GetAllCustomersQueryHandler implements IQueryHandler<GetAllCustomer
         phoneNumber: '1234567890',
         email: 'mock1@example.com',
         bankAccountNumber: '123456789',
-        createdAt: new Date(),
-        updatedAt: null,
         isDeleted: false
       },
       {
@@ -38,8 +36,6 @@ export class GetAllCustomersQueryHandler implements IQueryHandler<GetAllCustomer
         phoneNumber: '0987654321',
         email: 'mock2@example.com',
         bankAccountNumber: '987654321',
-        createdAt: new Date(),
-        updatedAt: null,
         isDeleted: false
       }
     ];

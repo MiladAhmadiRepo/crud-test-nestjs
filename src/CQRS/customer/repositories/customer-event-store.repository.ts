@@ -81,7 +81,6 @@ export class CustomerEventStoreRepository {
             eventData.phoneNumber,
             eventData.email,
             eventData.bankAccountNumber,
-            new Date(eventData.createdAt)
           );
           aggregate.onCustomerCreatedEvent(createdEvent);
           break;
@@ -95,7 +94,6 @@ export class CustomerEventStoreRepository {
             eventData.phoneNumber,
             eventData.email,
             eventData.bankAccountNumber,
-            new Date(eventData.updatedAt)
           );
           aggregate.onCustomerUpdatedEvent(updatedEvent);
           break;

@@ -13,6 +13,5 @@ export class CustomerUpdatedEvent {
     public readonly phoneNumber?: string,
     public readonly email?: string,
     public readonly bankAccountNumber?: string,
-    public readonly updatedAt: Date = new Date()
   ) {}
 }

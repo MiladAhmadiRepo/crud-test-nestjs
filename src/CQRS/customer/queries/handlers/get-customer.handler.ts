@@ -25,8 +25,6 @@ export class GetCustomerQueryHandler implements IQueryHandler<GetCustomerQuery> 
       phoneNumber: '1234567890',
       email: 'mock@example.com',
       bankAccountNumber: '123456789',
-      createdAt: new Date(),
-      updatedAt: null,
       isDeleted: false
     };
   }

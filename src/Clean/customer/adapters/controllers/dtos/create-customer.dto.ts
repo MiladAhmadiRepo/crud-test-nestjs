@@ -1,4 +1,4 @@
-import { IsString, IsDateString, IsEmail, IsOptional } from 'class-validator';
+import {IsString, IsDateString, IsEmail, IsOptional, IsNotEmpty} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsPhoneNumber } from '../../../../../Common/decorators/is-phone-number.decorator';
 import { IsBankAccount } from '../../../../../Common/decorators/is-bank-account.decorator';
@@ -38,7 +38,7 @@ export class CreateCustomerDto {
     required: false
   })
   @IsPhoneNumber()
-  @IsOptional()
+  @IsNotEmpty()
   phoneNumber?: string;
 
   @ApiProperty({
@@ -46,12 +46,8 @@ export class CreateCustomerDto {
     example: 'john.doe@example.com',
     required: false
   })
-  @IsEmail({
-    allow_display_name: false,
-    allow_utf8_local_part: true,
-    require_tld: true
-  }, { message: 'Email must be a valid email address' })
-  @IsOptional()
+  @IsEmail()
+  @IsNotEmpty()
   email?: string;
 
   @ApiProperty({
@@ -60,6 +56,6 @@ export class CreateCustomerDto {
     required: false
   })
   @IsBankAccount()
-  @IsOptional()
+  @IsNotEmpty()
   bankAccountNumber?: string;
 }

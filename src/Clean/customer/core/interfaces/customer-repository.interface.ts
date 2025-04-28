@@ -16,17 +16,7 @@ export interface ICustomerRepository {
    * Find a customer by their unique identifier
    */
   findById(id: number): Promise<Customer | null>;
-  
-  /**
-   * Find all customers
-   */
-  findAll(): Promise<Customer[]>;
-  
-  /**
-   * Find a customer by their email address
-   */
-  findByEmail(email: string): Promise<Customer | null>;
-  
+
   /**
    * Save a new or existing customer
    */

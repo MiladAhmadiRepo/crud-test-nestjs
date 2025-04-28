@@ -12,7 +12,6 @@ export class Customer {
   private _phoneNumber: string  ;
   private _email: string  ;
   private _bankAccountNumber: string  ;
-  private _createdAt: Date;
 
   constructor(
     id: number  ,
@@ -22,7 +21,7 @@ export class Customer {
     phoneNumber: string,
     email: string,
     bankAccountNumber: string,
-    createdAt: Date  |null
+
   ) {
     this._id = id || 0;
     this._firstName = firstName;
@@ -31,8 +30,6 @@ export class Customer {
     this._phoneNumber = phoneNumber  ;
     this._email = email  ;
     this._bankAccountNumber = bankAccountNumber  ;
-    this._createdAt = createdAt || new Date();
-    
     this.validateState();
   }
 
@@ -49,24 +46,8 @@ export class Customer {
     return this._lastName;
   }
 
-  get fullName(): string {
-    return `${this._firstName} ${this._lastName}`;
-  }
-
   get dateOfBirth(): Date {
     return this._dateOfBirth;
-  }
-
-  get age(): number {
-    const today = new Date();
-    let age = today.getFullYear() - this._dateOfBirth.getFullYear();
-    const monthDiff = today.getMonth() - this._dateOfBirth.getMonth();
-    
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < this._dateOfBirth.getDate())) {
-      age--;
-    }
-    
-    return age;
   }
 
   get phoneNumber(): string  {
@@ -81,9 +62,6 @@ export class Customer {
     return this._bankAccountNumber;
   }
 
-  get createdAt(): Date {
-    return this._createdAt;
-  }
 
 
 
@@ -141,15 +119,7 @@ export class Customer {
     if (this._dateOfBirth > new Date()) {
       throw new Error('Date of birth cannot be in the future');
     }
-    
-    if (this._email && !this.isValidEmail(this._email)) {
-      throw new Error('Invalid email format');
-    }
-  }
 
-  private isValidEmail(email: string): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
   }
 
   // For serialization
@@ -162,7 +132,6 @@ export class Customer {
       phoneNumber: this._phoneNumber,
       email: this._email,
       bankAccountNumber: this._bankAccountNumber,
-      createdAt: this._createdAt
     };
   }
 }

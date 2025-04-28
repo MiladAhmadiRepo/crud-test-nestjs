@@ -13,6 +13,5 @@ export class CustomerCreatedEvent {
     public readonly phoneNumber: string | null,
     public readonly email: string | null,
     public readonly bankAccountNumber: string | null,
-    public readonly createdAt: Date
   ) {}
 }

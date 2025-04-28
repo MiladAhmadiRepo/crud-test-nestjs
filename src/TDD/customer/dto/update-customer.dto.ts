@@ -1,7 +1,7 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateCustomerDto } from './create-customer.dto';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsDateString, IsEmail, IsOptional } from 'class-validator';
+import {IsString, IsDateString, IsEmail, IsOptional, IsNotEmpty} from 'class-validator';
 import { IsPhoneNumber } from "../../../Common/decorators/is-phone-number.decorator";
 import { IsBankAccount } from "../../../Common/decorators/is-bank-account.decorator";
 
@@ -12,7 +12,7 @@ export class UpdateCustomerDto {
     required: false
   })
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   firstName?: string;
 
   @ApiProperty({
@@ -21,7 +21,7 @@ export class UpdateCustomerDto {
     required: false
   })
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   lastName?: string;
 
   @ApiProperty({
@@ -30,7 +30,7 @@ export class UpdateCustomerDto {
     required: false
   })
   @IsDateString()
-  @IsOptional()
+  @IsNotEmpty()
   dateOfBirth?: string;
 
   @ApiProperty({
@@ -39,7 +39,7 @@ export class UpdateCustomerDto {
     required: false
   })
   @IsPhoneNumber()
-  @IsOptional()
+  @IsNotEmpty()
   phoneNumber?: string;
 
   @ApiProperty({
@@ -48,7 +48,7 @@ export class UpdateCustomerDto {
     required: false
   })
   @IsEmail()
-  @IsOptional()
+  @IsNotEmpty()
   email?: string;
 
   @ApiProperty({
@@ -57,6 +57,6 @@ export class UpdateCustomerDto {
     required: false
   })
   @IsBankAccount()
-  @IsOptional()
+  @IsNotEmpty()
   bankAccountNumber?: string;
 }

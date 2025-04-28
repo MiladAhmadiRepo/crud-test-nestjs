@@ -24,9 +24,6 @@ export class CustomerResponsePresenter {
   @ApiProperty({ example: '1990-01-01T00:00:00.000Z' })
   dateOfBirth: string;
 
-  @ApiProperty({ example: 33 })
-  age: number;
-
   @ApiProperty({ example: '1234567890', nullable: true })
   phoneNumber: string | null;
 
@@ -35,9 +32,6 @@ export class CustomerResponsePresenter {
 
   @ApiProperty({ example: '123456789', nullable: true })
   bankAccountNumber: string | null;
-
-  @ApiProperty({ example: '2023-01-01T00:00:00.000Z' })
-  createdAt: string;
 
   // updatedAt field removed as it's no longer in the base entity
 
@@ -49,13 +43,10 @@ export class CustomerResponsePresenter {
     presenter.id = customer.id;
     presenter.firstName = customer.firstName;
     presenter.lastName = customer.lastName;
-    presenter.fullName = customer.fullName;
     presenter.dateOfBirth = customer.dateOfBirth.toISOString();
-    presenter.age = customer.age;
     presenter.phoneNumber = customer.phoneNumber;
     presenter.email = customer.email;
     presenter.bankAccountNumber = customer.bankAccountNumber;
-    presenter.createdAt = customer.createdAt.toISOString();
     return presenter;
   }
 }
