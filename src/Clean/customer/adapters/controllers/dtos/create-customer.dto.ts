@@ -1,5 +1,7 @@
 import { IsString, IsDateString, IsEmail, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsPhoneNumber } from '../../../../../Common/decorators/is-phone-number.decorator';
+import { IsBankAccount } from '../../../../../Common/decorators/is-bank-account.decorator';
 
 /**
  * Data Transfer Object for creating a new customer
@@ -31,11 +33,11 @@ export class CreateCustomerDto {
   dateOfBirth: string;
 
   @ApiProperty({
-    description: 'The phone number of the customer',
-    example: '1234567890',
+    description: 'The phone number of the customer (must be a valid mobile number)',
+    example: '+12025550123',
     required: false
   })
-  @IsString({ message: 'Phone number must be a string' })
+  @IsPhoneNumber()
   @IsOptional()
   phoneNumber?: string;
 
@@ -44,16 +46,20 @@ export class CreateCustomerDto {
     example: 'john.doe@example.com',
     required: false
   })
-  @IsEmail({}, { message: 'Email must be a valid email address' })
+  @IsEmail({
+    allow_display_name: false,
+    allow_utf8_local_part: true,
+    require_tld: true
+  }, { message: 'Email must be a valid email address' })
   @IsOptional()
   email?: string;
 
   @ApiProperty({
-    description: 'The bank account number of the customer',
-    example: '123456789',
+    description: 'The bank account number of the customer (8-17 digits)',
+    example: '12345678901',
     required: false
   })
-  @IsString({ message: 'Bank account number must be a string' })
+  @IsBankAccount()
   @IsOptional()
   bankAccountNumber?: string;
 }
