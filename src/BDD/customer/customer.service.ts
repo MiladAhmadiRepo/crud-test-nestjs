@@ -48,13 +48,6 @@ export class CustomerService {
     }
   }
 
-  /**
-   * Retrieve all customers from the system
-   * @returns List of all registered customers
-   */
-  async retrieveAllCustomers(): Promise<CustomerEntity[]> {
-    return this.customerRepository.find();
-  }
 
   /**
    * Find a specific customer by their ID

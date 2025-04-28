@@ -45,18 +45,6 @@ export class CustomerController {
     return this.customerService.registerNewCustomer(createCustomerDto);
   }
 
-  @Get()
-  @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Retrieve all customers from the system' })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'List of all registered customers',
-    type: [CustomerEntity]
-  })
-  async getAllCustomers(): Promise<CustomerEntity[]> {
-    return this.customerService.retrieveAllCustomers();
-  }
-
   @Get(':id')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Find a specific customer by ID' })
