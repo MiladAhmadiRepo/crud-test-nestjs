@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, QueryFailedError } from 'typeorm';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
-import {CustomerEntity} from "../../Orm/models/customer/customer.model";
+import { CustomerEntity } from "../../Orm/models/customer/customer.model";
 
 @Injectable()
 export class CustomerService {
@@ -17,6 +17,10 @@ export class CustomerService {
       const customer = this.customerRepository.create(createCustomerDto);
       return await this.customerRepository.save(customer);
     } catch (error) {
+      if (error instanceof ConflictException) {
+        // Re-throw conflict exceptions from the validation
+        throw error;
+      }
       if (error instanceof QueryFailedError) {
         if (error.message.includes('email')) {
           throw new ConflictException('Email already exists');
@@ -42,12 +46,22 @@ export class CustomerService {
 
   async update(id: number, updateCustomerDto: UpdateCustomerDto): Promise<CustomerEntity|null> {
     try {
+      // Get the existing customer to check if name or DOB is being updated
+      const existingCustomer = await this.customerRepository.findOneBy({ id });
+      if (!existingCustomer) {
+        throw new NotFoundException(`Customer with ID ${id} not found`);
+      }
+      
       const result = await this.customerRepository.update(id, updateCustomerDto);
       if (result.affected === 0) {
         throw new NotFoundException(`Customer with ID ${id} not found`);
       }
       return await this.customerRepository.findOneBy({ id });
     } catch (error) {
+      if (error instanceof ConflictException) {
+        // Re-throw conflict exceptions from the validation
+        throw error;
+      }
       if (error instanceof QueryFailedError) {
         if (error.message.includes('email')) {
           throw new ConflictException('Email already exists');
@@ -57,7 +71,6 @@ export class CustomerService {
       }
       throw error;
     }
-
   }
 
   async remove(id: number): Promise<void> {

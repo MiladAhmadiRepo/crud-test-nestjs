@@ -1,12 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, OneToOne } from 'typeorm'
+import { BeforeInsert, BeforeUpdate, Column, Entity, Index, OneToMany, OneToOne } from 'typeorm'
 import { BaseEntity } from '../base/base.model'
 
-
-
 @Entity({
-  name:  'customer'
+  name: 'customer'
 })
+@Index(['firstName', 'lastName', 'dateOfBirth'], { unique: true })
 export class CustomerEntity extends BaseEntity {
 
   @Column({ type: 'varchar', length: 50, nullable: false })
@@ -24,14 +23,15 @@ export class CustomerEntity extends BaseEntity {
   @Column({ type: 'varchar', length: 20, nullable: true })
   phoneNumber: string
 
-  @Column({ type: 'varchar', length: 50, nullable: true })
+  @Column({ type: 'varchar', length: 50, nullable: true, unique: true })
   email: string
 
   @Column({ type: 'varchar', length: 100, nullable: true })
-  bankAccountNumber: string  
+  bankAccountNumber: string
+
   //=============================== relations ==========================================================================
 
-  // @OneToMany(() => PatientPlanEntity, (pp) => pp.patient)
-  // patientPlans: PatientPlanEntity[]
+  // @OneToMany(() => PlanEntity, (pp) => pp.patient)
+  // plans: PlanEntity[]
 
 }
